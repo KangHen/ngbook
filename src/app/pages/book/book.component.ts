@@ -12,13 +12,16 @@ import { forkJoin } from 'rxjs';
   styleUrl: './book.component.scss'
 })
 export class BookComponent implements OnInit {
-  bookService = inject(BookService);
+  private bookService = inject(BookService);
 
   books$ = this.bookService.getBooks();
   categories$ = this.bookService.getCategories();
   
   categories = signal<Categories>({});
   books = signal<Book[]>([]);
+
+  showDeleteModal = false;
+  deleteId = 0;
 
   constructor() { }
 
@@ -31,6 +34,23 @@ export class BookComponent implements OnInit {
 
         if (books.data) {
           this.books.set(books.data);
+        }
+      });
+  }
+
+  onConfirmDelete(id: number) {
+    this.showDeleteModal = true;
+    this.deleteId = id;
+  }
+
+  onDeleted() {
+    this.showDeleteModal = false;
+    this.bookService.deleteBook(this.deleteId)
+      .subscribe((response) => {
+        if (response.success) {
+          this.books$.subscribe((books) => {
+            this.books.set(books.data);
+          });
         }
       });
   }

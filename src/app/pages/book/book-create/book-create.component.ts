@@ -17,13 +17,14 @@ export class BookCreateComponent implements OnInit {
   private bookService = inject(BookService);
   router = inject(Router);
   
+  categories$ = this.bookService.getCategories();
   categories = signal<Categories>({});
 
   constructor() { }
 
   ngOnInit(): void {
-    this.bookService.getCategories()
-      .subscribe((response: CategoriesResponse) => {
+    this.categories$.
+      subscribe((response: CategoriesResponse) => {
         if (response.data) {
           this.categories.set(response.data);
         }

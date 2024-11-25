@@ -12,7 +12,7 @@ import { Book } from '../book.type';
   styleUrl: './book-form.component.scss'
 })
 export class BookFormComponent {
-  book = input<Book|null>();
+  book = input<Book|null>(null);
   form!: FormGroup;
 
   constructor() { }
@@ -23,8 +23,8 @@ export class BookFormComponent {
       category_id: new FormControl([], [Validators.required]),
     });
 
-    if (this.book) {
-      this.form.patchValue(this.book);
+    if (this.book()) {
+      this.form.patchValue(this.book() as Book);
     }
   }
 }

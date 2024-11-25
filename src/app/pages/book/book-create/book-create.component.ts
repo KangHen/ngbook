@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BookFormComponent } from '../book-form/book-form.component';
+import { Book } from '../book.type';
 
 @Component({
   selector: 'app-book-create',
@@ -13,4 +14,8 @@ import { BookFormComponent } from '../book-form/book-form.component';
 })
 export class BookCreateComponent {
 
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 }

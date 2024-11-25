@@ -43,7 +43,10 @@ export class BookFormComponent implements OnChanges, OnInit {
 
   submit() {
     if (this.form.valid) {
-      const form: BookForm = this.form.value as BookForm;
+      const form: BookForm = {
+        name: this.form.get('name')?.value,
+        category_id: parseInt(this.form.get('category_id')?.value),
+      }
 
       this.submited.emit(form);
     }

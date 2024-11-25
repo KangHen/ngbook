@@ -23,4 +23,4 @@ Completely Task with Basic Rest API CRUD with Angular 19 and Golang Backend.
 - Form / Reactive Form
 
 ## Reference
-You can find REST API Repo in [Gobook API] (https://github.com/KangHen/gobook-api)
+You can find REST API Repo in [GobookAPI] (https://github.com/KangHen/gobook-api)

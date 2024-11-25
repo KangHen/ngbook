@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { BookFormComponent } from '../book-form/book-form.component';
-import { Book, Categories, CategoriesResponse } from '../book.type';
+import { Book, BookForm, Categories, CategoriesResponse } from '../book.type';
 import { BookService } from '../book.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class BookCreateComponent implements OnInit {
     });
   }
 
-  onSubmited(event: any) {
+  onSubmited(event: BookForm) {
     this.bookService.createBook(event)
       .subscribe((response) => {
         if (response.success) {

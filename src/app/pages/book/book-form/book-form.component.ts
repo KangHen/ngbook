@@ -29,15 +29,15 @@ export class BookFormComponent implements OnChanges, OnInit {
       name: new FormControl('', [Validators.required]),
       category_id: new FormControl(1, [Validators.required]),
     });
-
-    if (this.book()) {
-      this.form.patchValue(this.book() as Book);
-    }
   }
 
   ngOnChanges(): void {
     if (this.categories()) {
       this.categoriesArray = this.categories() ? Object.keys(this.categories() as object) : [];
+    }
+
+    if (this.book()) {
+      this.form.patchValue(this.book() as Book);
     }
   }
 

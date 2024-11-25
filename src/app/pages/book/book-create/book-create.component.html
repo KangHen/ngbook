@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="flow-root">
-                <app-book-form></app-book-form>
+                <app-book-form (submited)="onSubmited($event)" [categories]="categories()"></app-book-form>
             </div>
         </div>
     </div>

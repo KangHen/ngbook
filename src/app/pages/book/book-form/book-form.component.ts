@@ -1,30 +1,51 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnChanges, OnInit, output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Book } from '../book.type';
+import { Book, BookForm, Categories } from '../book.type';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-book-form',
   imports: [
+    CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './book-form.component.html',
-  styleUrl: './book-form.component.scss'
+  styleUrl: './book-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookFormComponent {
+export class BookFormComponent implements OnChanges, OnInit {
   book = input<Book|null>(null);
+  categories = input<Categories>();
+  submited = output<BookForm>();
+
   form!: FormGroup;
+  categoriesArray!:Array<any>;
 
   constructor() { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      category_id: new FormControl([], [Validators.required]),
+      category_id: new FormControl(1, [Validators.required]),
     });
 
     if (this.book()) {
       this.form.patchValue(this.book() as Book);
+    }
+  }
+
+  ngOnChanges(): void {
+    if (this.categories()) {
+      this.categoriesArray = this.categories() ? Object.keys(this.categories() as object) : [];
+    }
+  }
+
+  submit() {
+    if (this.form.valid) {
+      const form: BookForm = this.form.value as BookForm;
+
+      this.submited.emit(form);
     }
   }
 }
